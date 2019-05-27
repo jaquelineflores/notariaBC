@@ -1,23 +1,234 @@
-<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.Mobile.master.cs" Inherits="notariaBC.Site_Mobile" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.Mobile.master.cs" Inherits="notariaBC.Site_Mobile" %>
 <%@ Register Src="~/ViewSwitcher.ascx" TagPrefix="friendlyUrls" TagName="ViewSwitcher" %>
 
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+
+<html lang="en">
 <head runat="server">
-    <meta name="viewport" content="width=device-width" />
-    <title></title>
-    <asp:ContentPlaceHolder runat="server" ID="HeadContent" />
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%: Page.Title %> Colegio de notarios de Baja California</title>
+
+    <asp:PlaceHolder runat="server">
+        <%: Scripts.Render("~/bundles/modernizr") %>
+    </asp:PlaceHolder>
+
+    <webopt:BundleReference runat="server" Path="~/Content/css" />
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <style>
+        @media screen and (max-width: 600px) {
+       table {
+           width:100%;
+       }
+       thead {
+           display: none;
+       }
+       tr:nth-of-type(2n) {
+           background-color: inherit;
+       }
+       tr td:first-child {
+           background: #f0f0f0;
+           font-weight:bold;
+           font-size:1.3em;
+       }
+       tbody td {
+           display: block;
+           text-align:center;
+       }
+       tbody td:before {
+           content: attr(data-th);
+           display: block;
+           text-align:center;
+       }
+}
+
+
+        .fluid {
+            clear: both;
+            margin-left: 0;
+            width: 100%;
+            float: left;
+            display: block;
+        }
+
+        .pie_cont {
+            width: 92.8288%;
+            height: auto;
+            margin-left: 1.5855%;
+            margin-right: 1.5855%;
+            margin: auto;
+            clear: none;
+            float: none;
+        }
+
+        .pie {
+            height: auto;
+            background-color: #194860;
+        }
+
+        a.link_datos {
+            font-family: 'Fira Sans', sans-serif;
+            text-align: center;
+            color: #ffffff;
+            font-weight: normal;
+            font-size: 15px;
+            text-decoration: none;
+        }
+
+        .pie_datos1 {
+            margin-top: 30px;
+            font-family: 'Oswald', sans-serif text-align: center;
+            color: #e8c9a6;
+            font-weight: 300;
+            font-size: 18px;
+        }
+
+        .pie_datos2 {
+            font-family: 'Fira Sans', sans-serif;
+            text-align: center;
+            color: #ffffff;
+            font-weight: 400;
+            font-size: 15px;
+            margin-top: 6px;
+            padding-bottom: 10px;
+        }
+
+        .pie_datos3 {
+            font-family: 'Fira Sans', sans-serif;
+            text-align: center;
+            font-weight: 400;
+            font-size: 15px;
+            color: #ffffff;
+            padding-top: 10px;
+            padding-bottom: 23px;
+            border-top: 1px solid #4583a3;
+        }
+
+        .fluid {
+            clear: both;
+            margin-left: 0;
+            width: 100%;
+            float: left;
+            display: block;
+        }
+    </style>
+    
+
+
+    <script type="text/javascript">
+        var temp = 1;
+        $(document).ready(function () {
+            $('#Mexicali').show();
+
+        });
+
+        var visto = null;
+        function ver(num) {
+            var temp = num;
+            obj = document.getElementById(num);
+            obj.style.display = (obj == visto) ? 'none' : 'block';
+            obj.className += "temp";
+            if (visto != null)
+                visto.style.display = 'none';
+            visto = (obj == visto) ? null : obj;
+
+
+            // elementos de la lista
+            var menues = $(".nav li");
+
+            // manejador de click sobre todos los elementos
+            menues.click(function () {
+                // eliminamos active de todos los elementos
+                menues.removeClass("active");
+                // activamos el elemento clicado.
+                $(this).addClass("active");
+            });
+
+            if (temp == 'Mexicali') {
+                var esVisible = $("#Mexicali").is(":none");
+
+                if (esVisible != true) {
+                    document.getElementById('Mexicali').style.display = 'block';
+                }
+            }
+            else {
+                document.getElementById('Mexicali').style.display = 'none';
+            }
+
+        }
+    </script>
+
+
 </head>
 <body>
-    <form id="form1" runat="server">
-    <div>
-        <h1>Mobile Master Page</h1>
-        <asp:ContentPlaceHolder runat="server" ID="FeaturedContent" />
-        <section class="content-wrapper main-content clear-fix">
-            <asp:ContentPlaceHolder runat="server" ID="MainContent" />
-        </section>
-        <friendlyUrls:ViewSwitcher runat="server" />
+    <form runat="server">
+        <asp:ScriptManager runat="server">
+            <Scripts>
+                <%--To learn more about bundling scripts in ScriptManager see https://go.microsoft.com/fwlink/?LinkID=301884 --%>
+                <%--Framework Scripts--%>
+                <asp:ScriptReference Name="MsAjaxBundle" />
+                <asp:ScriptReference Name="jquery" />
+                <asp:ScriptReference Name="bootstrap" />
+                <asp:ScriptReference Name="WebForms.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebForms.js" />
+                <asp:ScriptReference Name="WebUIValidation.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebUIValidation.js" />
+                <asp:ScriptReference Name="MenuStandards.js" Assembly="System.Web" Path="~/Scripts/WebForms/MenuStandards.js" />
+                <asp:ScriptReference Name="GridView.js" Assembly="System.Web" Path="~/Scripts/WebForms/GridView.js" />
+                <asp:ScriptReference Name="DetailsView.js" Assembly="System.Web" Path="~/Scripts/WebForms/DetailsView.js" />
+                <asp:ScriptReference Name="TreeView.js" Assembly="System.Web" Path="~/Scripts/WebForms/TreeView.js" />
+                <asp:ScriptReference Name="WebParts.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebParts.js" />
+                <asp:ScriptReference Name="Focus.js" Assembly="System.Web" Path="~/Scripts/WebForms/Focus.js" />
+                <asp:ScriptReference Name="WebFormsBundle" />
+                <%--Site Scripts--%>
+            </Scripts>
+        </asp:ScriptManager>
+
+        <div class="img" style="background-color: white;">
+            <img src="images/BANNER NOTARIOS_Mesa de trabajo 1_Mesa de trabajo 1.png" class="img-responsive" alt="Responsive image" style="width: 100%;" />
+        </div>
+
+        <nav class="navbar navbar-default" style="background-color: #194860">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand"   href="directorio.aspx" style="color: white; font-size: larger;" onmouseover="this.bgColor='white'; this.style.color='#DD9C35'; this.style.fontWeight='bold'"   onmouseout="this.bgColor='black'; this.style.color='white'; this.style.fontWeight='100'" >Inicio</a>
     </div>
+
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li ><a href="About.aspx"  onmouseover="this.bgColor='white'; this.style.color='#DD9C35'; this.style.fontWeight='bold'"   onmouseout="this.bgColor='black'; this.style.color='white'; this.style.fontWeight='100'" style="color: white; font-size: larger;">Acerca de</a></li>
+  
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+        <div class="container body-content">
+            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+            </asp:ContentPlaceHolder>
+            <hr />
+        </div>
+
     </form>
+    <footer class="fluid pie">
+        <div class="fluid pie_cont">
+            <%--<div class="fluid pie_datos1" align="center">COLEGIO DE NOTARIOS DE BAJA CALIFORNIA</div>--%>
+            <div class="fluid pie_datos2" align="center">
+                <img src="images/fb8.png" alt="" width="29" height="15"><a href="https://facebook.com/colegiodenotariosdebajacalifornia" target="_blank" class="link_datos">colegiodenotariosdebajacalifornia</a><img src="images/mail_icon.png" alt="" width="55" height="13"><a href="mailto:notariosbc@prodigy.net.mx" class="link_datos">notariosbc@prodigy.net.mx</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="images/telefono2.png" alt="" width="15" height="15"><label class="link_datos">&nbsp;&nbsp;664-684-14-60</label>
+            </div>
+            <div class="fluid pie_datos3" align="center">
+                <span class="txt_blue2"><a href="copyright.html" target="_blank">
+                    <img src="images/copyright_icon.png" alt="" width="27" height="17"></a><%: DateTime.Now.Year %></span> - Todos los derechos reservados: <span class="txt_blue2">Colegio de Notarios de Baja California<img src="images/pie_div.png" alt="" width="20" height="18"></span>
+                <img src="images/interartis_icon.png" alt="" width="27" height="18">
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
